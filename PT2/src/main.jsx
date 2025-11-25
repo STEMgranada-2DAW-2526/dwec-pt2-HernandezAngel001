@@ -1,11 +1,11 @@
 import React from "react";
-import { GameProvider } from "./gameProvider";
-import Game from "./game";
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import Game from './game.jsx';
 
-export default function App() {
-  return (
-    <GameProvider>
+createRoot(document.getElementById('root')).render(
+  
+    <StrictMode>
       <Game />
-    </GameProvider>
-  );
-}
+    </StrictMode>
+)

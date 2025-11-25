@@ -21,5 +21,11 @@ export default function Juego() {
     }
   }, [danoRealizado, objetivoDano, despachar]);
 
-  
+  return ( 
+    <div className="juego">
+      <h1>¡Defiende la aldea navideña!</h1>
+      <div></div>
+
+      </div>
+      )
 }
