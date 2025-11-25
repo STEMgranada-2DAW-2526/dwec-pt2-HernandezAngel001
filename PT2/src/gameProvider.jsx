@@ -42,10 +42,28 @@ function reducerJuego(estado, accion) {
         ...estado,
         caramelos: estado.caramelos - siguienteMejora.costo,
         danoPorDisparo: estado.danoPorDisparo + siguienteMejora.dano,
-        mejorasDano: [...estado.mejorasDano, sigui],
+        mejorasDano: [...estado.mejorasDano, siguienteMejora.id],
       }
     }
-    }
-    }
+    case "SIGUIENTE_OLEADA":
+      return {
+        ...estado,
+        danoRealizado: 0,
+        objetivoDano: Math.ceil(estado.objetivoDano * 1.1),
+        caramelos: estado.caramelos + 10,
+      }
+    default:
+      return estado
+  }
+}
 
-    
+export const ContextoJuego = createContext()
+
+export function GameProvider({ children }) {
+  const [estado, despachar] = useReducer(reducerJuego, estadoInicial)
+  return (
+    <ContextoJuego.Provider value={{ estado, despachar }}>
+      {children}
+    </ContextoJuego.Provider>
+  )
+}
