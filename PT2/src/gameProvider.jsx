@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer } from "react"
 
 const estadoInicial = {
   danoRealizado: 0,
@@ -35,6 +35,17 @@ function reducerJuego(estado, accion) {
         disparosAutoPorSegundo: estado.disparosAutoPorSegundo + 1,
         costoMultiplicador: Math.ceil(estado.costoMultiplicador * 1.2),
       }
-    case "":
+    case "COMPRAR_MEJORA_DANO": {
+      const siguienteMejora = estado.nivelesMejoraDano[estado.mejorasDano.length]
+      if (!siguienteMejora || estado.caramelos < siguienteMejora.costo) return estado
+      return {
+        ...estado,
+        caramelos: estado.caramelos - siguienteMejora.costo,
+        danoPorDisparo: estado.danoPorDisparo + siguienteMejora.dano,
+        mejorasDano: [...estado.mejorasDano, sigui],
+      }
     }
-}
+    }
+    }
+
+    
