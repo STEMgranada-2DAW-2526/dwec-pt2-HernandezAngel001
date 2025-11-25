@@ -1,13 +1,30 @@
-import React, { useReducer } from "react";
-import GameContext from "../context/GameContext";
-import { gameReducer, initialState } from "../reducer/gameReducer";
+import React, { createContext, useReducer } from "react";
 
-export default function GameProvider({ ninios }) {
-  const [state, dispatch] = useReducer(gameReducer, initialState);
+const estadoInicial = {
+  danoRealizado: 0,
+  objetivoDano: 100,
+  caramelos: 10,
+  danoPorDisparo: 2,
+  disparosAutoPorSegundo: 1,
+  mejorasDano: [],
+  costoMultiplicador: 10,
+  nivelesMejoraDano: [
+    { id: "turron", etiqueta: "Cañón de Turrón Explosivo", dano: 2, costo: 15 },
+    { id: "renos", etiqueta: "Renos-Lanzamisiles", dano: 5, costo: 30 },
+    { id: "arbol", etiqueta: "Árbol de Navidad Láser", dano: 10, costo: 50 },
+  ],
+};
 
-  return (
-    <GameContext.Provider value={{ state, dispatch }}>
-      {nin}
-    </GameContext.Provider>
-  );
-}
+function reducerJuego(estado, accion) {
+  switch (accion.tipo) {
+    case "DISPARO_MANUAL":
+      return {
+        ...estado,
+        danoRealizado: estado.danoRealizado + estado.danoPorDisparo,
+      };
+    case "DISPARO_AUTO":
+      return {
+        ...estado,
+        danoRealizado: estado.danoRealizado + estado.danoPorDisparo * estado.disparosAutoPorSegundo,
+      };
+    case "COMP":
